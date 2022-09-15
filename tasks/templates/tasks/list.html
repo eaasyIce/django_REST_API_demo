@@ -1,0 +1,26 @@
+<h3>TO DO</h3>
+
+<!-- this is post request for the form to create a new task -->
+<form method ="POST"  action="/">
+    {% csrf_token %}
+     <!-- we only need the title field from the task attributes, not other fields  -->
+    {{form.title}} 
+    <input type="submit" name="Create Task">
+</form>
+
+
+<!-- for loop to step through all task objects -->
+{% for task in tasks %}  
+    <div>
+        <a href="{% url 'update_task' task.id %}">Update</a> <!-- a bottom connects to the dynamic link 'update_task' + task.id in url.py  -->
+        <a href="{% url 'delete' task.id %}">Delete</a>  
+
+        <!-- striking out the completed tasks -->
+        {% if task.complete == True %} 
+        <s>{{task}}</s>
+        {% else %} 
+        <span>{{task}}</span>
+        {% endif %}
+    </div> 
+
+{% endfor %}
